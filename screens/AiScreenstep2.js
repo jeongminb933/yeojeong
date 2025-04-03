@@ -10,7 +10,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 
-export default function AiStep2Screen() {
+export default function AiScreenstep2() {
   const navigation = useNavigation();
 
   const handleSelect = (option) => {

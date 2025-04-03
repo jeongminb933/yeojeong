@@ -11,8 +11,8 @@ import FlightScreen from '../screens/FlightScreen';
 import HotelScreen from '../screens/HotelScreen';
 import ActivityScreen from '../screens/ActivityScreen';
 import AiScreen from '../screens/AiScreen';
-import AiStep1Screen from '../screens/AiStep1Screen';
-import AiStep2Screen from '../screens/AiStep2Screen';
+import AiScreenstep1 from '../screens/AiScreenstep1';
+import AiScreenstep2 from '../screens/AiScreenstep2';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,8 +35,8 @@ export default function StackNavigator() {
       <Stack.Screen name="Hotel" component={HotelScreen} />
       <Stack.Screen name="Activity" component={ActivityScreen} />
       <Stack.Screen name="Ai" component={AiScreen} />
-      <Stack.Screen name="AiStep1" component={AiStep1Screen} />
-      <Stack.Screen name="AiStep2" component={AiStep2Screen} />
+      <Stack.Screen name="AiStep1" component={AiScreenstep1} />
+      <Stack.Screen name="AiStep2" component={AiScreenstep2} />
     </>
   ) : (
     <Stack.Screen name="Auth" component={AuthScreen} />
