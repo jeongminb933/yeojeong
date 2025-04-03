@@ -1,8 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons'; // ← 아이콘 사용
 
 export default function AiScreen() {
   const navigation = useNavigation();
@@ -10,18 +16,20 @@ export default function AiScreen() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient
-        colors={['#7FC4FD', '#EAF6FF']} // ⛅ 실제 느낌 살린 하늘색
+        colors={['#7FC4FD', '#EAF6FF']}
         style={styles.container}
       >
-        {/* ← 뒤로가기 버튼 */}
+        {/* ← 화살표 아이콘 */}
         <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
-          <Ionicons name="chevron-back" size={28} color="white" />
+          <AntDesign name="arrowleft" size={28} color="white" />
         </TouchableOpacity>
 
-        {/* 중앙 텍스트 */}
-        <View style={styles.centerBox}>
+        {/* 왼쪽 상단 텍스트 */}
+        <View style={styles.textBox}>
           <Text style={styles.title}>당신의{'\n'}여정을 위한{'\n'}첫 걸음</Text>
-          <Text style={styles.subtitle}>완벽한 여행을 위해{'\n'}몇 가지만 물어볼게요</Text>
+          <Text style={styles.subtitle}>
+            완벽한 여행을 위해{'\n'}몇 가지만 물어볼게요
+          </Text>
         </View>
       </LinearGradient>
     </SafeAreaView>
@@ -35,27 +43,26 @@ const styles = StyleSheet.create({
   backButton: {
     position: 'absolute',
     top: 60,
-    left: 20,
+    left: 24,
     zIndex: 10,
   },
-  centerBox: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 24,
+  textBox: {
+    marginTop: 140, // 상단에서 조금 아래로 내림
+    paddingHorizontal: 28,
+    alignItems: 'flex-start', // 왼쪽 정렬
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     color: 'white',
-    textAlign: 'center',
-    lineHeight: 40,
+    lineHeight: 38,
+    textAlign: 'left',
   },
   subtitle: {
     marginTop: 12,
     fontSize: 14,
     color: 'white',
-    textAlign: 'center',
+    textAlign: 'left',
     lineHeight: 20,
   },
 });
