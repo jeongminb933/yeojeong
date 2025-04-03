@@ -1,21 +1,15 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  SafeAreaView,
-} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 
-export default function AiScreenstep2() {
+export default function AiScreenstep2({ route }) {
   const navigation = useNavigation();
+  const { companion } = route.params || {};
 
-  const handleSelect = (option) => {
-    console.log(`선택: ${option}`);
-    // navigation.navigate('AiScreenstep3', { companion: option });
+  const handleSelect = (style) => {
+    navigation.navigate('AiScreenstep3', { companion, style });
   };
 
   return (
@@ -24,18 +18,11 @@ export default function AiScreenstep2() {
         <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
           <AntDesign name="arrowleft" size={28} color="white" />
         </TouchableOpacity>
-
         <View style={styles.content}>
-          <Text style={styles.question}>누구와 함께 하는 여행인가요?</Text>
-
-          <View style={styles.row}>
-            <OptionButton label="혼자서" onPress={() => handleSelect('혼자서')} />
-            <OptionButton label="연인과" onPress={() => handleSelect('연인과')} />
-          </View>
-          <View style={styles.row}>
-            <OptionButton label="친구와" onPress={() => handleSelect('친구와')} />
-            <OptionButton label="가족과" onPress={() => handleSelect('가족과')} />
-          </View>
+          <Text style={styles.question}>어떤 여행 스타일을 선호하시나요?</Text>
+          <OptionButton label="낭만 넘치는 감성 여행" onPress={() => handleSelect('감성 여행')} />
+          <OptionButton label="신나고 아찔한 액티비티" onPress={() => handleSelect('액티비티')} />
+          <OptionButton label="소중한 추억을 만드는 효도여행" onPress={() => handleSelect('효도 여행')} />
         </View>
       </LinearGradient>
     </SafeAreaView>
@@ -61,28 +48,27 @@ const styles = StyleSheet.create({
   content: {
     marginTop: 160,
     alignItems: 'center',
+    paddingHorizontal: 24,
   },
   question: {
     fontSize: 18,
     fontWeight: 'bold',
     color: 'white',
-    marginBottom: 30,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginBottom: 16,
+    marginBottom: 32,
+    textAlign: 'center',
   },
   button: {
     backgroundColor: 'white',
     borderRadius: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 18,
-    marginHorizontal: 8,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    marginBottom: 14,
+    minWidth: '100%',
   },
   buttonText: {
     fontSize: 14,
     color: '#4DA6FF',
     fontWeight: '600',
+    textAlign: 'center',
   },
 });

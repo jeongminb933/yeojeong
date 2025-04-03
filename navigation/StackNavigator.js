@@ -1,23 +1,23 @@
-// navigation/StackNavigator.js
 import React, { useEffect, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
 
 import AuthScreen from '../screens/AuthScreen';
-import EmotionalTripScreen from '../screens/EmotionalTripScreen';
-import TabNavigator from './TabNavigator'; // ✅ 메인 탭
-import FlightScreen from '../screens/FlightScreen';
-import HotelScreen from '../screens/HotelScreen';
-import ActivityScreen from '../screens/ActivityScreen';
+import TabNavigator from './TabNavigator';
 import AiScreen from '../screens/AiScreen';
 import AiScreenstep1 from '../screens/AiScreenstep1';
 import AiScreenstep2 from '../screens/AiScreenstep2';
+import AiScreenstep3 from '../screens/AiScreenstep3';
+import AiScreenstep4 from '../screens/AiScreenstep4';
+import AiScreenstep5 from '../screens/AiScreenstep5';
+import AiLoadingScreen from '../screens/AiLoadingScreen';
+import AiResultScreen from '../screens/AiResultScreen';
 
 const Stack = createNativeStackNavigator();
 
 export default function StackNavigator() {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(true); // 테스트용 true
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -26,25 +26,24 @@ export default function StackNavigator() {
     return unsubscribe;
   }, []);
 
-  // 🔥 조건 분기 미리 처리
-  const screens = user ? (
-    <>
-      <Stack.Screen name="MainTabs" component={TabNavigator} />
-      <Stack.Screen name="EmotionalTrip" component={EmotionalTripScreen} />
-      <Stack.Screen name="Flight" component={FlightScreen} />
-      <Stack.Screen name="Hotel" component={HotelScreen} />
-      <Stack.Screen name="Activity" component={ActivityScreen} />
-      <Stack.Screen name="Ai" component={AiScreen} />
-      <Stack.Screen name="AiScreenstep1" component={AiScreenstep1} />
-      <Stack.Screen name="AiScreenstep2" component={AiScreenstep2} />
-    </>
-  ) : (
-    <Stack.Screen name="Auth" component={AuthScreen} />
-  );
-
   return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {screens}
+    <Stack.Navigator
+      screenOptions={{ headerShown: false, animation: 'fade' }}>
+      {user ? (
+        <>
+          <Stack.Screen name="MainTabs" component={TabNavigator} />
+          <Stack.Screen name="Ai" component={AiScreen} />
+          <Stack.Screen name="AiScreenstep1" component={AiScreenstep1} />
+          <Stack.Screen name="AiScreenstep2" component={AiScreenstep2} />
+          <Stack.Screen name="AiScreenstep3" component={AiScreenstep3} />
+          <Stack.Screen name="AiScreenstep4" component={AiScreenstep4} />
+          <Stack.Screen name="AiScreenstep5" component={AiScreenstep5} />
+          <Stack.Screen name="AiLoadingScreen" component={AiLoadingScreen} />
+          <Stack.Screen name="AiResultScreen" component={AiResultScreen} />
+        </>
+      ) : (
+        <Stack.Screen name="Auth" component={AuthScreen} />
+      )}
     </Stack.Navigator>
   );
 }

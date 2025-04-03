@@ -1,9 +1,7 @@
-// App.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import StackNavigator from './navigation/StackNavigator';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect, useState } from 'react';
 
 SplashScreen.preventAutoHideAsync();
 

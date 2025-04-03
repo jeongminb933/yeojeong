@@ -1,3 +1,4 @@
+// screens/AiScreenstep1.js
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -10,7 +11,6 @@ export default function AiScreenstep1() {
     const timer = setTimeout(() => {
       navigation.navigate('AiScreenstep2');
     }, 1000);
-
     return () => clearTimeout(timer);
   }, []);
 
@@ -29,7 +29,9 @@ export default function AiScreenstep1() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+  },
   textBox: {
     marginTop: 140,
     paddingHorizontal: 28,
