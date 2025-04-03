@@ -11,6 +11,7 @@ import ChatScreen from '../screens/ChatScreen';
 import ExploreScreen from '../screens/ExploreScreen';
 import FavoritesScreen from '../screens/FavoritesScreen';
 import MenuScreen from '../screens/MenuScreen';
+import AiScreen from '../screens/AiScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,12 +24,12 @@ export default function TabNavigator() {
         tabBarIcon: ({ color, size }) => {
           let iconName;
 
-          if (route.name === 'Home') iconName = 'home-outline';
-          else if (route.name === 'Flight') iconName = 'airplane-outline';
-          else if (route.name === 'Hotel') iconName = 'bed-outline';
-          else if (route.name === 'Activity') iconName = 'game-controller-outline';
+          if (route.name === 'Explore') iconName = 'compass-outline';
+
+
           else if (route.name === 'Chat') iconName = 'chatbubble-ellipses-outline';
-          else if (route.name === 'Explore') iconName = 'compass-outline';
+          else if (route.name === 'Home') iconName = 'home-outline';
+
           else if (route.name === 'Favorites') iconName = 'heart-outline';
           else if (route.name === 'Menu') iconName = 'menu-outline';
 
@@ -36,14 +37,12 @@ export default function TabNavigator() {
         },
       })}
     >
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Flight" component={FlightScreen} />
-      <Tab.Screen name="Hotel" component={HotelScreen} />
-      <Tab.Screen name="Activity" component={ActivityScreen} />
-      <Tab.Screen name="Chat" component={ChatScreen} />
       <Tab.Screen name="Explore" component={ExploreScreen} />
+      <Tab.Screen name="Chat" component={ChatScreen} />
+      <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Favorites" component={FavoritesScreen} />
       <Tab.Screen name="Menu" component={MenuScreen} />
+      
     </Tab.Navigator>
   );
 }

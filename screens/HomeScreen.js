@@ -30,10 +30,15 @@ export default function HomeScreen() {
 
         {/* ONE CLICK PLANNER */}
         <View style={styles.sectionLarge}>
+
           <Text style={styles.title}>ONE CLICK{"\n"}PLANNER</Text>
           <Text style={styles.subtext}>
             ✨ AI가 당신만을 위한 여행 계획을{'\n'}단 한 번의 클릭으로 추천해드려요.
           </Text>
+          <FeatureButton
+                onPress={() => navigation.navigate('Ai')}
+                label={"ㄱㄱ 시발 집가고싶어"}
+            />
         </View>
 
         {/* 항공권 / 숙박 / 액티비티 */}
@@ -41,17 +46,17 @@ export default function HomeScreen() {
           <FeatureButton
             label="항공권"
             emoji="🛫"
-            onPress={() => navigation.navigate('MainTabs', { screen: 'Flight' })}
+            onPress={() => navigation.navigate('Flight')}
           />
           <FeatureButton
             label="숙박"
             emoji="🏨"
-            onPress={() => navigation.navigate('MainTabs', { screen: 'Hotel' })}
+            onPress={() => navigation.navigate('Hotel')}
           />
           <FeatureButton
             label="액티비티"
             emoji="🎡"
-            onPress={() => navigation.navigate('MainTabs', { screen: 'Activity' })}
+            onPress={() => navigation.navigate('Activity')}
           />
         </View>
 
@@ -69,24 +74,7 @@ export default function HomeScreen() {
         <Text style={styles.sectionLabel}>실시간 인기 여행지</Text>
       </ScrollView>
 
-      {/* ✅ 하단 탭 역할 버튼 */}
-      <View style={styles.bottomNav}>
-        <TouchableOpacity onPress={() => navigation.navigate('MainTabs', { screen: 'Home' })}>
-          <Ionicons name="location-outline" size={24} color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('MainTabs', { screen: 'Chat' })}>
-          <Ionicons name="chatbubble-ellipses-outline" size={24} color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('MainTabs', { screen: 'Explore' })}>
-          <Ionicons name="compass-outline" size={24} color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('MainTabs', { screen: 'Favorites' })}>
-          <Ionicons name="heart-outline" size={24} color="black" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('MainTabs', { screen: 'Menu' })}>
-          <Ionicons name="menu-outline" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
+
     </SafeAreaView>
   );
 }
