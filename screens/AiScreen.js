@@ -13,6 +13,14 @@ import { AntDesign } from '@expo/vector-icons'; // ← 아이콘 사용
 export default function AiScreen() {
   const navigation = useNavigation();
 
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.navigate('AiScreenstep1');
+    }, 1000);
+
+    return () => clearTimeout(timer); // 메모리 누수 방지
+  }, []);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient
