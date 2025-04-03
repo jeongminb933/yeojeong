@@ -8,3 +8,4 @@ export default function AiScreen() {
     </View>
   );
 }
+// 테스트입니다.
