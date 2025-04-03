@@ -35,8 +35,8 @@ export default function StackNavigator() {
       <Stack.Screen name="Hotel" component={HotelScreen} />
       <Stack.Screen name="Activity" component={ActivityScreen} />
       <Stack.Screen name="Ai" component={AiScreen} />
-      <Stack.Screen name="AiStep1" component={AiScreenstep1} />
-      <Stack.Screen name="AiStep2" component={AiScreenstep2} />
+      <Stack.Screen name="AiScreenstep1" component={AiScreenstep1} />
+      <Stack.Screen name="AiScreenstep2" component={AiScreenstep2} />
     </>
   ) : (
     <Stack.Screen name="Auth" component={AuthScreen} />

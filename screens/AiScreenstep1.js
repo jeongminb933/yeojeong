@@ -3,13 +3,13 @@ import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 
-export default function AiStep1Screen() {
+export default function AiScreenstep1() {
   const navigation = useNavigation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.navigate('AiStep2');
-    }, 1000); // 1초 후 이동
+      navigation.navigate('AiScreenstep2');
+    }, 1000);
 
     return () => clearTimeout(timer);
   }, []);

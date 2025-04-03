@@ -15,7 +15,7 @@ export default function AiScreenstep2() {
 
   const handleSelect = (option) => {
     console.log(`선택: ${option}`);
-    // 예: navigation.navigate('AiStep3', { companion: option });
+    // navigation.navigate('AiScreenstep3', { companion: option });
   };
 
   return (
