@@ -1,10 +1,12 @@
 // navigation/StackNavigator.js
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebaseConfig';
-import AuthScreen from '../screens/AuthScreen'; // ✅ 여기!
-import HomeScreen from '../screens/HomeScreen';
+
+import AuthScreen from '../screens/AuthScreen';
+import EmotionalTripScreen from '../screens/EmotionalTripScreen';
+import TabNavigator from './TabNavigator'; // ✅ 메인 탭
 
 const Stack = createNativeStackNavigator();
 
@@ -18,13 +20,19 @@ export default function StackNavigator() {
     return unsubscribe;
   }, []);
 
+  // 🔥 조건 분기 미리 처리
+  const screens = user ? (
+    <>
+      <Stack.Screen name="MainTabs" component={TabNavigator} />
+      <Stack.Screen name="EmotionalTrip" component={EmotionalTripScreen} />
+    </>
+  ) : (
+    <Stack.Screen name="Auth" component={AuthScreen} />
+  );
+
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      {user ? (
-        <Stack.Screen name="Home" component={HomeScreen} />
-      ) : (
-        <Stack.Screen name="Auth" component={AuthScreen} />
-      )}
+      {screens}
     </Stack.Navigator>
   );
 }
