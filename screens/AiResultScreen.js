@@ -11,9 +11,6 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import { AntDesign } from '@expo/vector-icons';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import { GoogleGenerativeAI } from '@google/generative-ai';
-
-const genAI = new GoogleGenerativeAI("AIzaSyB3lozLx9aSmh0DXn0kn-V0ad4RIZXa-mM");
 
 function buildPrompt({ companion, style, budget, location, extra }) {
   return `
@@ -44,7 +41,7 @@ function buildPrompt({ companion, style, budget, location, extra }) {
 export default function AiResultScreen() {
   const navigation = useNavigation();
   const route = useRoute();
-  const { companion, style, budget, location, extra } = route.params;
+  const { companion, style, budget, location, extra } = route.params || {};
 
   const [loading, setLoading] = useState(true);
   const [jsonResult, setJsonResult] = useState(null);
@@ -52,13 +49,25 @@ export default function AiResultScreen() {
   useEffect(() => {
     const fetchResult = async () => {
       try {
-        const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
         const prompt = buildPrompt({ companion, style, budget, location, extra });
-        const result = await model.generateContent(prompt);
-        const text = result.response.text();
 
-        const parsed = JSON.parse(text);
-        setJsonResult(parsed);
+        const res = await fetch('https://us-central1-yeojeong-bebe4.cloudfunctions.net/generateTravelPlan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt })
+        });
+
+        const data = await res.json();
+        const text = data?.text?.trim();
+
+        const jsonStart = text.indexOf('{');
+        const jsonEnd = text.lastIndexOf('}');
+        if (jsonStart !== -1 && jsonEnd !== -1) {
+          const parsed = JSON.parse(text.slice(jsonStart, jsonEnd + 1));
+          setJsonResult(parsed);
+        } else {
+          throw new Error('Gemini 응답에서 JSON을 추출할 수 없음');
+        }
       } catch (error) {
         console.error('❌ Gemini 오류', error);
         setJsonResult(null);
@@ -73,7 +82,7 @@ export default function AiResultScreen() {
   return (
     <LinearGradient colors={['#7FC4FD', '#EAF6FF']} style={{ flex: 1 }}>
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.navigate('MainTabs')}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <AntDesign name="arrowleft" size={28} color="white" />
         </TouchableOpacity>
         <Text style={styles.headerText}>AI 여행 추천 결과</Text>

@@ -14,6 +14,10 @@ import AiScreenstep5 from '../screens/AiScreenstep5';
 import AiLoadingScreen from '../screens/AiLoadingScreen';
 import AiResultScreen from '../screens/AiResultScreen';
 import AiScreenstep1_5 from '../screens/AiScreenstep1_5';
+import ActivityScreen from '../screens/ActivityScreen';
+import FlightScreen from '../screens/FlightScreen';
+import HotelScreen from '../screens/HotelScreen';
+import EmotionalTripScreen from '../screens/EmotionalTripScreen'
 
 const Stack = createNativeStackNavigator();
 
@@ -28,8 +32,7 @@ export default function StackNavigator() {
   }, []);
 
   return (
-    <Stack.Navigator
-      screenOptions={{ headerShown: false, animation: 'fade' }}>
+    <Stack.Navigator screenOptions={{ headerShown: false, animation: 'fade' }}>
       {user ? (
         <>
           <Stack.Screen name="MainTabs" component={TabNavigator} />
@@ -42,6 +45,10 @@ export default function StackNavigator() {
           <Stack.Screen name="AiLoadingScreen" component={AiLoadingScreen} />
           <Stack.Screen name="AiResultScreen" component={AiResultScreen} />
           <Stack.Screen name="AiScreenstep1_5" component={AiScreenstep1_5} />
+          <Stack.Screen name="Flight" component={FlightScreen} />
+          <Stack.Screen name="Activity" component={ActivityScreen} />
+          <Stack.Screen name="Hotel" component={HotelScreen} />
+          <Stack.Screen name="Emotional" component={EmotionalTripScreen} />
         </>
       ) : (
         <Stack.Screen name="Auth" component={AuthScreen} />
