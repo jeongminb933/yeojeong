@@ -13,8 +13,33 @@ import { AntDesign } from '@expo/vector-icons';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-// 🔑 Gemini API 키 삽입 (보안상 실제 배포 시엔 서버에 두는 걸 권장)
-const genAI = new GoogleGenerativeAI('AIzaSyB3lozLx9aSmh0DXn0kn-V0ad4RIZXa-mM');
+const genAI = new GoogleGenerativeAI("AIzaSyB3lozLx9aSmh0DXn0kn-V0ad4RIZXa-mM");
+
+function buildPrompt({ companion, style, budget, location, extra }) {
+  return `
+너는 전문 여행 플래너야.
+
+나는 2025년 7월 1일부터 3일까지 ${location}을 여행할 거야.
+동반자는 ${companion}이고, 여행 스타일은 ${style}이야.
+예산은 약 ${budget}원이고, 추가 요청은 "${extra || '없음'}"이야.
+
+📌 반드시 다음 조건을 따라야 해:
+
+1. 반드시 순수한 JSON만 응답할 것 (설명이나 텍스트 금지)
+2. 아래 형식을 정확히 따를 것
+3. 각 날짜(day1, day2, day3)에 최소 3~5개의 일정 포함
+4. 시간(time)은 "HH:MM" 형식, activity는 "간단한 설명"으로
+5. 한국인 관광객 기준으로 맛집/체험/쇼핑도 포함
+
+{
+  "day1": [
+    { "time": "09:00", "activity": "도쿄타워에서 시작" },
+    { "time": "11:00", "activity": "근처 카페에서 커피" }
+  ],
+  "day2": [],
+  "day3": []
+}`;
+}
 
 export default function AiResultScreen() {
   const navigation = useNavigation();
@@ -22,25 +47,21 @@ export default function AiResultScreen() {
   const { companion, style, budget, location, extra } = route.params;
 
   const [loading, setLoading] = useState(true);
-  const [resultText, setResultText] = useState('');
+  const [jsonResult, setJsonResult] = useState(null);
 
   useEffect(() => {
     const fetchResult = async () => {
       try {
         const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
-        const prompt = `다음 조건에 맞춰 하루 여행 일정을 추천해줘.\n
-- 동반자: ${companion}\n
-- 여행 스타일: ${style}\n
-- 예산: ${budget}원\n
-- 지역: ${location}\n
-- 추가 요청: ${extra}`;
-
+        const prompt = buildPrompt({ companion, style, budget, location, extra });
         const result = await model.generateContent(prompt);
         const text = result.response.text();
-        setResultText(text);
+
+        const parsed = JSON.parse(text);
+        setJsonResult(parsed);
       } catch (error) {
-        setResultText('❌ AI 추천을 가져오는 중 오류가 발생했어요.');
-        console.error(error);
+        console.error('❌ Gemini 오류', error);
+        setJsonResult(null);
       } finally {
         setLoading(false);
       }
@@ -51,7 +72,6 @@ export default function AiResultScreen() {
 
   return (
     <LinearGradient colors={['#7FC4FD', '#EAF6FF']} style={{ flex: 1 }}>
-      {/* 🔙 뒤로가기 버튼 → 홈으로 */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.navigate('MainTabs')}>
           <AntDesign name="arrowleft" size={28} color="white" />
@@ -61,14 +81,21 @@ export default function AiResultScreen() {
 
       {loading ? (
         <ActivityIndicator size="large" color="white" style={{ marginTop: 100 }} />
-      ) : (
+      ) : jsonResult ? (
         <ScrollView contentContainerStyle={styles.content}>
-          {resultText.split('\n').map((line, index) => (
-            <View key={index} style={styles.card}>
-              <Text style={styles.cardText}>{line.trim()}</Text>
+          {['day1', 'day2', 'day3'].map((day) => (
+            <View key={day} style={styles.dayBlock}>
+              <Text style={styles.dayTitle}>{day.toUpperCase()}</Text>
+              {jsonResult[day]?.map((item, index) => (
+                <Text key={index} style={styles.item}>
+                  ⏰ {item.time} - {item.activity}
+                </Text>
+              ))}
             </View>
           ))}
         </ScrollView>
+      ) : (
+        <Text style={styles.errorText}>결과를 불러오는 데 실패했어요.</Text>
       )}
     </LinearGradient>
   );
@@ -89,15 +116,29 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 20,
+    paddingBottom: 60,
   },
-  card: {
-    backgroundColor: 'white',
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 12,
+  dayBlock: {
+    marginBottom: 24,
   },
-  cardText: {
+  dayTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    color: '#fff',
+  },
+  item: {
     fontSize: 14,
+    backgroundColor: 'white',
+    marginBottom: 6,
+    padding: 10,
+    borderRadius: 8,
     color: '#333',
+  },
+  errorText: {
+    textAlign: 'center',
+    marginTop: 100,
+    color: 'white',
+    fontSize: 16,
   },
 });
