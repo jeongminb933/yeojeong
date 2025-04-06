@@ -20,7 +20,7 @@ export default function AiScreenstep3() {
 
   const handleNext = () => {
     if (!budget) return;
-    navigation.navigate('AiScreenstep4', {
+    navigation.replace('AiScreenstep4', {
       companion,
       style,
       budget,
