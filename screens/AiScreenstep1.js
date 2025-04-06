@@ -9,7 +9,7 @@ export default function AiScreenstep1() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.navigate('AiScreenstep2');
+      navigation.navigate('AiScreenstep1.5');
     }, 1000);
     return () => clearTimeout(timer);
   }, []);

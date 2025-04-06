@@ -4,18 +4,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 
-export default function AiScreenstep4() {
+export default function AiScreenstep1_5() {
   const navigation = useNavigation();
-  const route = useRoute();
-  const { companion, style, budget } = route.params;
 
-  const handleSelect = (location) => {
-    navigation.navigate('AiScreenstep5', {
-      companion,
-      style,
-      budget,
-      location,
-    });
+  const handleSelect = (companion) => {
+    navigation.navigate('AiScreenstep2', { companion }); // 다음 스텝으로 전달
   };
 
   return (
@@ -24,11 +17,16 @@ export default function AiScreenstep4() {
         <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
           <AntDesign name="arrowleft" size={28} color="white" />
         </TouchableOpacity>
+
         <View style={styles.content}>
-          <Text style={styles.question}>어디로 가시나요?</Text>
+          <Text style={styles.question}>누구와 함께 하는 여행인가요?</Text>
           <View style={styles.row}>
-            <OptionButton label="국내" onPress={() => handleSelect('국내')} />
-            <OptionButton label="해외" onPress={() => handleSelect('해외')} />
+            <OptionButton label="혼자서" onPress={() => handleSelect('혼자서')} />
+            <OptionButton label="연인과" onPress={() => handleSelect('연인과')} />
+          </View>
+          <View style={styles.row}>
+            <OptionButton label="친구와" onPress={() => handleSelect('친구와')} />
+            <OptionButton label="가족과" onPress={() => handleSelect('가족과')} />
           </View>
         </View>
       </LinearGradient>
@@ -55,23 +53,26 @@ const styles = StyleSheet.create({
   content: {
     marginTop: 160,
     alignItems: 'center',
+    paddingHorizontal: 24,
   },
   question: {
     fontSize: 18,
     fontWeight: 'bold',
     color: 'white',
-    marginBottom: 32,
+    marginBottom: 40,
+    textAlign: 'center',
   },
   row: {
     flexDirection: 'row',
-    gap: 12,
+    justifyContent: 'center',
+    marginBottom: 16,
+    gap: 16,
   },
   button: {
     backgroundColor: 'white',
     borderRadius: 20,
     paddingVertical: 10,
     paddingHorizontal: 18,
-    marginHorizontal: 8,
   },
   buttonText: {
     fontSize: 14,

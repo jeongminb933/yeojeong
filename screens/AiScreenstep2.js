@@ -5,11 +5,14 @@ import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 
 export default function AiScreenstep2({ route }) {
-  const navigation = useNavigation();
-  const { companion } = route.params || {};
-
+  const route = useRoute();
+  const { companion } = route.params;
+  
   const handleSelect = (style) => {
-    navigation.navigate('AiScreenstep3', { companion, style });
+    navigation.navigate('AiScreenstep3', {
+      companion,
+      style,
+    });
   };
 
   return (

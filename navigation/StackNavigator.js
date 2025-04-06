@@ -13,6 +13,7 @@ import AiScreenstep4 from '../screens/AiScreenstep4';
 import AiScreenstep5 from '../screens/AiScreenstep5';
 import AiLoadingScreen from '../screens/AiLoadingScreen';
 import AiResultScreen from '../screens/AiResultScreen';
+import AiScreenstep1_5 from '../screens/AiScreenstep1_5';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,6 +41,7 @@ export default function StackNavigator() {
           <Stack.Screen name="AiScreenstep5" component={AiScreenstep5} />
           <Stack.Screen name="AiLoadingScreen" component={AiLoadingScreen} />
           <Stack.Screen name="AiResultScreen" component={AiResultScreen} />
+          <Stack.Screen name="AiScreenstep1_5" component={AiScreenstep1_5} />
         </>
       ) : (
         <Stack.Screen name="Auth" component={AuthScreen} />

@@ -28,15 +28,17 @@ export default function AiLoadingScreen() {
     ).start();
 
     // 3초 후 결과 화면 이동
-    const timer = setTimeout(() => {
-      navigation.navigate('AiResultScreen', {
-        companion,
-        style,
-        budget,
-        location,
-        extra,
-      });
-    }, 3000);
+    useEffect(() => {
+      setTimeout(() => {
+        navigation.navigate('AiResultScreen', {
+          companion,
+          style,
+          budget,
+          location,
+          extra,
+        });
+      }, 3000);
+    }, []);
 
     return () => clearTimeout(timer);
   }, []);
