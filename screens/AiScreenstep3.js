@@ -31,7 +31,8 @@ export default function AiScreenstep3() {
     <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient colors={['#7FC4FD', '#EAF6FF']} style={styles.container}>
         {/* ← 뒤로가기 버튼 */}
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('AiScreenstep2', { companion })}
+        >
           <AntDesign name="arrowleft" size={28} color="white" />
         </TouchableOpacity>
 
