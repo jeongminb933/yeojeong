@@ -7,13 +7,19 @@ import AuthScreen from '../screens/AuthScreen';
 import TabNavigator from './TabNavigator';
 import AiScreen from '../screens/AiScreen';
 import AiScreenstep1 from '../screens/AiScreenstep1';
+import AiScreenstep1_5 from '../screens/AiScreenstep1_5';
 import AiScreenstep2 from '../screens/AiScreenstep2';
 import AiScreenstep3 from '../screens/AiScreenstep3';
 import AiScreenstep4 from '../screens/AiScreenstep4';
 import AiScreenstep5 from '../screens/AiScreenstep5';
 import AiLoadingScreen from '../screens/AiLoadingScreen';
 import AiResultScreen from '../screens/AiResultScreen';
-import AiScreenstep1_5 from '../screens/AiScreenstep1_5';
+import AiDomesticCityScreen from '../screens/AiDomesticCityScreen';
+import AiOverseasCityScreen from '../screens/AiOverseasCityScreen';
+import EmotionalTripScreen from '../screens/EmotionalTripScreen';
+import FlightScreen from '../screens/FlightScreen';
+import HotelScreen from '../screens/HotelScreen';
+import ActivityScreen from '../screens/ActivityScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,20 +34,25 @@ export default function StackNavigator() {
   }, []);
 
   return (
-    <Stack.Navigator
-      screenOptions={{ headerShown: false, animation: 'fade' }}>
+    <Stack.Navigator screenOptions={{ headerShown: false, animation: 'fade' }}>
       {user ? (
         <>
           <Stack.Screen name="MainTabs" component={TabNavigator} />
           <Stack.Screen name="Ai" component={AiScreen} />
           <Stack.Screen name="AiScreenstep1" component={AiScreenstep1} />
+          <Stack.Screen name="AiScreenstep1_5" component={AiScreenstep1_5} />
           <Stack.Screen name="AiScreenstep2" component={AiScreenstep2} />
           <Stack.Screen name="AiScreenstep3" component={AiScreenstep3} />
           <Stack.Screen name="AiScreenstep4" component={AiScreenstep4} />
           <Stack.Screen name="AiScreenstep5" component={AiScreenstep5} />
           <Stack.Screen name="AiLoadingScreen" component={AiLoadingScreen} />
           <Stack.Screen name="AiResultScreen" component={AiResultScreen} />
-          <Stack.Screen name="AiScreenstep1_5" component={AiScreenstep1_5} />
+          <Stack.Screen name="AiDomesticCity" component={AiDomesticCityScreen} />
+          <Stack.Screen name="AiOverseasCity" component={AiOverseasCityScreen} />
+          <Stack.Screen name="EmotionalTrip" component={EmotionalTripScreen} />
+          <Stack.Screen name="Flight" component={FlightScreen} />
+          <Stack.Screen name="Hotel" component={HotelScreen} />
+          <Stack.Screen name="Activity" component={ActivityScreen} />
         </>
       ) : (
         <Stack.Screen name="Auth" component={AuthScreen} />
