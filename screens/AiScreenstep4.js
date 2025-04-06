@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
@@ -7,15 +13,26 @@ import { AntDesign } from '@expo/vector-icons';
 export default function AiScreenstep4() {
   const navigation = useNavigation();
   const route = useRoute();
-  const { companion, style, budget } = route.params;
+  const { companion, style, budget, extra } = route.params;
 
   const handleSelect = (location) => {
-    navigation.navigate('AiScreenstep5', {
-      companion,
-      style,
-      budget,
-      location,
-    });
+    if (location === '국내') {
+      navigation.navigate('AiDomesticCity', {
+        companion,
+        style,
+        budget,
+        location,
+        extra,
+      });
+    } else {
+      navigation.navigate('AiOverseasCity', {
+        companion,
+        style,
+        budget,
+        location,
+        extra,
+      });
+    }
   };
 
   return (

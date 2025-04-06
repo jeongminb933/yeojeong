@@ -10,7 +10,7 @@ import {
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 
-export default function AiAbroadCityScreen() {
+export default function AiOverseasCityScreen() {
   const navigation = useNavigation();
   const route = useRoute();
   const { companion, style, budget, location, extra } = route.params;
@@ -22,7 +22,7 @@ export default function AiAbroadCityScreen() {
       budget,
       location,
       extra,
-      selectedCity,
+      city: selectedCity,
     });
   };
 
