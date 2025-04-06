@@ -1,0 +1,1 @@
+import CommunityHomeScreen from '../screens/CommunityHomeScreen'; // 커뮤니티 홈 스크린

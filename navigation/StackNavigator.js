@@ -1,3 +1,4 @@
+// src/navigations/StackNavigator.js
 import React, { useEffect, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -21,6 +22,9 @@ import FlightScreen from '../screens/FlightScreen';
 import HotelScreen from '../screens/HotelScreen';
 import ActivityScreen from '../screens/ActivityScreen';
 import ApiTestScreen from '../screens/ApiTestScreen';
+
+// 커뮤니티 상세 화면 추가 (예: 일본 탭 등)
+import CommunityCountryDetailScreen from '../screens/CommunityCountryDetailScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -55,6 +59,8 @@ export default function StackNavigator() {
           <Stack.Screen name="Hotel" component={HotelScreen} />
           <Stack.Screen name="Activity" component={ActivityScreen} />
           <Stack.Screen name="ApiTest" component={ApiTestScreen} />
+          {/* 커뮤니티 상세 화면 추가 */}
+          <Stack.Screen name="CommunityDetail" component={CommunityCountryDetailScreen} />
         </>
       ) : (
         <Stack.Screen name="Auth" component={AuthScreen} />
