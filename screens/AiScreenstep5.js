@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
@@ -7,15 +14,20 @@ import { AntDesign } from '@expo/vector-icons';
 export default function AiScreenstep5() {
   const navigation = useNavigation();
   const route = useRoute();
-  const { companion, style, budget, location } = route.params;
+
+  // ✅ city 포함해서 모든 값 받기
+  const { companion, style, budget, location, city } = route.params;
+
   const [extra, setExtra] = useState('');
 
   const handleSubmit = () => {
+    // ✅ city도 다음 화면으로 전달
     navigation.navigate('AiLoadingScreen', {
       companion,
       style,
       budget,
       location,
+      city,
       extra,
     });
   };
@@ -26,8 +38,10 @@ export default function AiScreenstep5() {
         <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
           <AntDesign name="arrowleft" size={28} color="white" />
         </TouchableOpacity>
+
         <View style={styles.content}>
           <Text style={styles.question}>추가로 원하는 사항이 있나요?</Text>
+
           <TextInput
             style={styles.input}
             placeholder="예: 조용한 힐링 중심으로 부탁해요"
@@ -38,6 +52,7 @@ export default function AiScreenstep5() {
             numberOfLines={4}
             returnKeyType="done"
           />
+
           <TouchableOpacity style={styles.button} onPress={handleSubmit}>
             <Text style={styles.buttonText}>AI 분석 시작하기</Text>
           </TouchableOpacity>

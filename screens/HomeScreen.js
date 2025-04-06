@@ -74,17 +74,7 @@ export default function HomeScreen() {
         <Text style={styles.sectionLabel}>실시간 인기 여행지</Text>
       </ScrollView>
 
-      <View style={styles.sectionLarge}>
 
-      <Text style={styles.title}>ONE CLICK{"\n"}PLANNER</Text>
-      <Text style={styles.subtext}>
-        ✨ AI가 당신만을 위한 여행 계획을{'\n'}단 한 번의 클릭으로 추천해드려요.
-      </Text>
-      <FeatureButton
-      onPress={() => navigation.navigate('ApiTest')}
-      label={" "}
-      />
-</View>
     </SafeAreaView>
   );
 }

@@ -16,12 +16,13 @@ import { mapActivityData } from '../utils/mapActivityData';
 export default function AiLoadingScreen() {
   const navigation = useNavigation();
   const route = useRoute();
-  const { companion, style, budget, location, extra } = route.params;
+
+  // ✅ city 추가
+  const { companion, style, budget, location, extra, city } = route.params;
 
   const translateY = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    // ✈️ 비행기 애니메이션
     Animated.loop(
       Animated.sequence([
         Animated.timing(translateY, { toValue: -10, duration: 1000, useNativeDriver: true }),
@@ -29,10 +30,14 @@ export default function AiLoadingScreen() {
       ])
     ).start();
 
-    // 🌐 API 데이터 불러오기 + Gemini 호출
     const loadAndGenerate = async () => {
       try {
-        const flightRaw = await fetchFlightData({ origin: 'ICN', destinationId: 'NRT', date: '2025-07-01' });
+        const flightRaw = await fetchFlightData({
+          origin: 'ICN',
+          destinationId: 'NRT', // 🛫 임시 고정 (city 기반 동적 호출 필요 시 수정)
+          date: '2025-07-01',
+        });
+
         const hotelRaw = await fetchHotelData({ location });
         const restaurantRaw = await fetchRestaurantData({ locationId: '304554' });
         const activityRaw = await fetchActivityData({ input: 'attractions' });
@@ -43,7 +48,7 @@ export default function AiLoadingScreen() {
         const activities = mapActivityData(activityRaw);
 
         const payload = {
-          userInput: { companion, style, budget, location, extra },
+          userInput: { companion, style, budget, location, city, extra },
           flights,
           accommodations,
           restaurants,
@@ -64,11 +69,18 @@ export default function AiLoadingScreen() {
           budget,
           location,
           extra,
-          result, // ✅ AI 응답 전달
+          city, // ✅ 반드시 포함!
+          result,
         });
       } catch (error) {
         console.error('❌ 에러 발생:', error);
         navigation.navigate('AiResultScreen', {
+          companion,
+          style,
+          budget,
+          location,
+          extra,
+          city, // ✅ 에러 fallback에도 포함!
           result: { error: '데이터 불러오기 실패' },
         });
       }

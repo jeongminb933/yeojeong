@@ -1,6 +1,3 @@
-
-
-
 // firebaseConfig.js
 import { initializeApp } from 'firebase/app';
 import {
@@ -8,6 +5,7 @@ import {
   initializeAuth,
   getReactNativePersistence,
 } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore'; // ✅ 추가해야 함
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const firebaseConfig = {
@@ -21,9 +19,9 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 
-// AsyncStorage를 이용해 auth 상태 유지
 const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(AsyncStorage),
 });
 
 export { auth };
+export const db = getFirestore(app); // ✅ Firestore 인스턴스 내보내기
