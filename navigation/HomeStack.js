@@ -17,7 +17,6 @@ import AiLoadingScreen from '../screens/AiLoadingScreen';
 import AiScreen from '../screens/AiScreen';
 import AiScreenstep1_5 from '../screens/AiScreenstep1_5';
 
-
 const Stack = createNativeStackNavigator();
 
 export default function HomeStack() {
