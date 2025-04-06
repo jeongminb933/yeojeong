@@ -1,11 +1,20 @@
+// screens/AiResultScreen.js
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  ActivityIndicator,
+  TouchableOpacity,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AntDesign } from '@expo/vector-icons';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const genAI = new GoogleGenerativeAI('AIzaSyB3lozLx9aSmh0DXn0kn-V0ad4RIZXa-mM'); // 🔑 여기에 Gemini API 키 삽입
+// 🔑 Gemini API 키 삽입 (보안상 실제 배포 시엔 서버에 두는 걸 권장)
+const genAI = new GoogleGenerativeAI('AIzaSyB3lozLx9aSmh0DXn0kn-V0ad4RIZXa-mM');
 
 export default function AiResultScreen() {
   const navigation = useNavigation();
@@ -30,7 +39,7 @@ export default function AiResultScreen() {
         const text = result.response.text();
         setResultText(text);
       } catch (error) {
-        setResultText('AI 추천을 가져오는 중 오류가 발생했어요.');
+        setResultText('❌ AI 추천을 가져오는 중 오류가 발생했어요.');
         console.error(error);
       } finally {
         setLoading(false);
@@ -42,17 +51,21 @@ export default function AiResultScreen() {
 
   return (
     <LinearGradient colors={['#7FC4FD', '#EAF6FF']} style={{ flex: 1 }}>
+      {/* 🔙 뒤로가기 버튼 → 홈으로 */}
       <View style={styles.header}>
-        <AntDesign name="arrowleft" size={28} color="white" onPress={() => navigation.goBack()} />
+        <TouchableOpacity onPress={() => navigation.navigate('MainTabs')}>
+          <AntDesign name="arrowleft" size={28} color="white" />
+        </TouchableOpacity>
         <Text style={styles.headerText}>AI 여행 추천 결과</Text>
       </View>
+
       {loading ? (
         <ActivityIndicator size="large" color="white" style={{ marginTop: 100 }} />
       ) : (
         <ScrollView contentContainerStyle={styles.content}>
           {resultText.split('\n').map((line, index) => (
             <View key={index} style={styles.card}>
-              <Text style={styles.cardText}>{line}</Text>
+              <Text style={styles.cardText}>{line.trim()}</Text>
             </View>
           ))}
         </ScrollView>
