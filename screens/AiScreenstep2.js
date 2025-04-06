@@ -1,10 +1,12 @@
+import { useRoute } from '@react-navigation/native';
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation,useRoute } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 
 export default function AiScreenstep2() {
+  const navigation = useNavigation();
   const route = useRoute();
   const { companion } = route.params;
   
