@@ -1,7 +1,13 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 
 export default function AiScreenstep1_5() {
@@ -14,12 +20,17 @@ export default function AiScreenstep1_5() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient colors={['#7FC4FD', '#EAF6FF']} style={styles.container}>
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        {/* 🔙 홈으로 이동하는 뒤로가기 버튼 */}
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => navigation.navigate('MainTabs')}
+        >
           <AntDesign name="arrowleft" size={28} color="white" />
         </TouchableOpacity>
 
         <View style={styles.content}>
           <Text style={styles.question}>누구와 함께 하는 여행인가요?</Text>
+
           <View style={styles.row}>
             <OptionButton label="혼자서" onPress={() => handleSelect('혼자서')} />
             <OptionButton label="연인과" onPress={() => handleSelect('연인과')} />
@@ -43,7 +54,9 @@ function OptionButton({ label, onPress }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+  },
   backButton: {
     position: 'absolute',
     top: 60,
