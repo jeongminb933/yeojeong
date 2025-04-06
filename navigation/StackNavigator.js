@@ -18,6 +18,7 @@ import ActivityScreen from '../screens/ActivityScreen';
 import FlightScreen from '../screens/FlightScreen';
 import HotelScreen from '../screens/HotelScreen';
 import EmotionalTripScreen from '../screens/EmotionalTripScreen'
+import ApiTestScreen from '../screens/ApiTestScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -49,6 +50,7 @@ export default function StackNavigator() {
           <Stack.Screen name="Activity" component={ActivityScreen} />
           <Stack.Screen name="Hotel" component={HotelScreen} />
           <Stack.Screen name="EmotionalTrip" component={EmotionalTripScreen} />
+          <Stack.Screen name="ApiTest" component={ApiTestScreen} />
         </>
       ) : (
         <Stack.Screen name="Auth" component={AuthScreen} />
