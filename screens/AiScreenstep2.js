@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 
-export default function AiScreenstep2({ route }) {
+export default function AiScreenstep2() {
   const route = useRoute();
   const { companion } = route.params;
   
