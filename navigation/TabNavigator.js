@@ -10,7 +10,7 @@ import FavoritesScreen from '../screens/FavoritesScreen';
 import MenuScreen from '../screens/MenuScreen';
 
 // 새로 추가할 커뮤니티 스크린
-import CommunityHomeScreen from '../screens/CommunityHomeScreen';
+import CommunityHomeScreen from '../screens/CommunityHomeScreen'; // 커뮤니티 홈 스크린
 
 const Tab = createBottomTabNavigator();
 

@@ -24,7 +24,7 @@ import ActivityScreen from '../screens/ActivityScreen';
 import ApiTestScreen from '../screens/ApiTestScreen';
 
 // (선택) 커뮤니티 카테고리 스크린 (만약 카테고리 상세 필요)
-import CommunityCategoryScreen from '../screens/CommunityCategoryScreen';
+import CommunityCategoryScreen from '../screens/CommunityHomeScreen';
 
 const Stack = createNativeStackNavigator();
 
