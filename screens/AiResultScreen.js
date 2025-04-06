@@ -1,4 +1,3 @@
-// screens/AiResultScreen.js
 import React, { useEffect, useState } from 'react';
 import {
   View,
@@ -12,11 +11,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { AntDesign } from '@expo/vector-icons';
 import { useRoute, useNavigation } from '@react-navigation/native';
 
-function buildPrompt({ companion, style, budget, location, extra }) {
+function buildPrompt({ companion, style, budget, location, city, extra }) {
   return `
 너는 전문 여행 플래너야.
 
-나는 2025년 7월 1일부터 3일까지 ${location}을 여행할 거야.
+나는 2025년 7월 1일부터 3일까지 ${location}의 ${city}를 여행할 거야.
 동반자는 ${companion}이고, 여행 스타일은 ${style}이야.
 예산은 약 ${budget}원이고, 추가 요청은 "${extra || '없음'}"이야.
 
@@ -41,7 +40,7 @@ function buildPrompt({ companion, style, budget, location, extra }) {
 export default function AiResultScreen() {
   const navigation = useNavigation();
   const route = useRoute();
-  const { companion, style, budget, location, extra } = route.params || {};
+  const { companion, style, budget, location, city, extra } = route.params || {};
 
   const [loading, setLoading] = useState(true);
   const [jsonResult, setJsonResult] = useState(null);
@@ -49,7 +48,7 @@ export default function AiResultScreen() {
   useEffect(() => {
     const fetchResult = async () => {
       try {
-        const prompt = buildPrompt({ companion, style, budget, location, extra });
+        const prompt = buildPrompt({ companion, style, budget, location, city, extra });
 
         const res = await fetch('https://us-central1-yeojeong-bebe4.cloudfunctions.net/generateTravelPlan', {
           method: 'POST',
