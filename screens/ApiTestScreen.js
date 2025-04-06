@@ -11,32 +11,34 @@ export default function ApiTestScreen() {
   useEffect(() => {
     const testApiCalls = async () => {
       try {
-        const flight = await fetchFlightData({
+        const flightRaw = await fetchFlightData({
           origin: 'ICN',
           destination: 'NRT',
           date: '2025-07-01',
         });
 
-        const hotel = await fetchHotelData({
+        const hotelRaw = await fetchHotelData({
           dest_id: 'Tokyo',
           checkin: '2025-07-01',
           checkout: '2025-07-03',
         });
 
-        const restaurant = await fetchRestaurantData({
+        const restaurantRaw = await fetchRestaurantData({
           locationId: '293919', // 도쿄 locationId 예시
         });
 
-        const activity = await fetchActivityData({
+        const activityRaw = await fetchActivityData({
           lat: 35.682839,
           lng: 139.759455,
           keyword: 'tourist spot',
         });
 
-        console.log('✅ 항공권:', flight);
-        console.log('✅ 숙소:', hotel);
-        console.log('✅ 맛집:', restaurant);
-        console.log('✅ 명소:', activity);
+        // 👇 콘솔에 상세하게 출력
+        console.log('✅ 항공권:', JSON.stringify(flightRaw, null, 2));
+        console.log('✅ 숙소:', JSON.stringify(hotelRaw, null, 2));
+        console.log('✅ 맛집:', JSON.stringify(restaurantRaw, null, 2));
+        console.log('✅ 명소:', JSON.stringify(activityRaw, null, 2));
+
       } catch (err) {
         console.error('❌ API 호출 오류:', err);
       }
@@ -48,7 +50,7 @@ export default function ApiTestScreen() {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>🚀 API 테스트 중...</Text>
-      <Text>콘솔을 확인해주세요.</Text>
+      <Text>결과는 콘솔을 확인해주세요.</Text>
     </ScrollView>
   );
 }
