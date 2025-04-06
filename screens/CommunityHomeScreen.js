@@ -49,7 +49,14 @@ export default function CommunityCategoryScreen() {
   return (
     <SafeAreaView style={styles.safeContainer}>
       <View style={styles.container}>
-        <Text style={styles.title}>커뮤니티 카테고리</Text>
+        {/* 상단 헤더: 뒤로가기 버튼 + 제목 */}
+        <View style={styles.headerContainer}>
+          <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back" size={24} color="#000" />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>커뮤니티 카테고리</Text>
+        </View>
+        
         <SectionList
           sections={sections}
           keyExtractor={(item, index) => item + index}
@@ -73,12 +80,21 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  title: {
+  headerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop: 40, // iOS 노치 고려
+    paddingBottom: 10,
+    paddingHorizontal: 15,
+    borderBottomWidth: 0.5,
+    borderColor: '#ccc',
+  },
+  backButton: {
+    marginRight: 10,
+  },
+  headerTitle: {
     fontSize: 25,
     fontWeight: 'bold',
-    padding: 15,
-    textAlign: 'center',
-    backgroundColor: '#f2f2f2',
   },
   listContainer: {
     paddingHorizontal: 20,
