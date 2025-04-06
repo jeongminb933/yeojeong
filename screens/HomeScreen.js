@@ -37,7 +37,7 @@ export default function HomeScreen() {
           </Text>
           <FeatureButton
                 onPress={() => navigation.navigate('Ai')}
-                label={"ㄱㄱ 시발 집가고싶어"}
+                label={" "}
             />
         </View>
 

@@ -48,7 +48,7 @@ export default function StackNavigator() {
           <Stack.Screen name="Flight" component={FlightScreen} />
           <Stack.Screen name="Activity" component={ActivityScreen} />
           <Stack.Screen name="Hotel" component={HotelScreen} />
-          <Stack.Screen name="Emotional" component={EmotionalTripScreen} />
+          <Stack.Screen name="EmotionalTrip" component={EmotionalTripScreen} />
         </>
       ) : (
         <Stack.Screen name="Auth" component={AuthScreen} />
