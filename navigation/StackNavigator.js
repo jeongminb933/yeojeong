@@ -1,4 +1,4 @@
-// navigation/StackNavigator.js
+// src/navigations/StackNavigator.js
 import React, { useEffect, useState } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -23,8 +23,8 @@ import HotelScreen from '../screens/HotelScreen';
 import ActivityScreen from '../screens/ActivityScreen';
 import ApiTestScreen from '../screens/ApiTestScreen';
 
-// (선택) 커뮤니티 카테고리 스크린 (만약 카테고리 상세 필요)
-import CommunityCategoryScreen from '../screens/CommunityHomeScreen';
+// 커뮤니티 상세 화면 추가 (예: 일본 탭 등)
+import CommunityCountryDetailScreen from '../screens/CommunityCountryDetailScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -43,7 +43,6 @@ export default function StackNavigator() {
       {user ? (
         <>
           <Stack.Screen name="MainTabs" component={TabNavigator} />
-          {/* 기타 AI/Flight/Activity 스크린 */}
           <Stack.Screen name="Ai" component={AiScreen} />
           <Stack.Screen name="AiScreenstep1" component={AiScreenstep1} />
           <Stack.Screen name="AiScreenstep1_5" component={AiScreenstep1_5} />
@@ -60,9 +59,8 @@ export default function StackNavigator() {
           <Stack.Screen name="Hotel" component={HotelScreen} />
           <Stack.Screen name="Activity" component={ActivityScreen} />
           <Stack.Screen name="ApiTest" component={ApiTestScreen} />
-
-          {/* 커ㅞ뮤니티 카테고리 상세 화면 (필요 시) */}
-          <Stack.Screen name="CommunityCategory" component={CommunityCategoryScreen} />
+          {/* 커뮤니티 상세 화면 추가 */}
+          <Stack.Screen name="CommunityDetail" component={CommunityCountryDetailScreen} />
         </>
       ) : (
         <Stack.Screen name="Auth" component={AuthScreen} />
